@@ -5,40 +5,27 @@ import time
 def process_command(command):
     action, *args = command.split()
 
-    key_actions = ['key', 'hold', 'release']
+    key_actions = ['key', 'hold', 'press', 'release']
     mouse_actions = ['move', 'click', 'scroll']
     click_types = ['left', 'right']
     scroll_directions = ['up', 'down']
 
     if action in key_actions:
         # keyboard action
-        # key string
         if action == 'key':
             keyboard.write(' '.join(args))
+        elif action == 'press':
+            key = ' '.join(args)
+            keyboard.press(key)
+            keyboard.release(key)
         elif action == 'hold':
-            key = args[0]
+            key = ' '.join(args)
             keyboard.press(key)
         elif action == 'release':
-            key = args[0]
+            key = ' '.join(args)
             keyboard.release(key)
     elif action in mouse_actions:
         # mouse action
-
-        # move
-        # move relative(r) dx dy
-        # move absolute(a) x y
-        # move image(i) image_path
-
-        # click
-        # click left/right/middle
-        # click left/right/middle N
-        # click left/right/middle hold
-        # click left/right/middle release
-        # click left/right/middle hold release
-
-        # scroll
-        # scroll up/down
-        # scroll up/down amount
         if action == 'move':
             move_type, *values = args
             if move_type == 'relative' or move_type == 'r':
@@ -95,8 +82,25 @@ def read_instructions(file_path):
 
 def load_file(file_path):
     instructions = read_instructions(file_path)
-    for instruction in instructions:
-        process_command(instruction)
+    i = 0
+    while i < len(instructions):
+        instruction = instructions[i]
+        if instruction == 'loop':
+            print("AAA")
+            loop_instructions = []
+            i += 1
+            while i < len(instructions) and instructions[i] != 'loop end':
+                loop_instructions.append(instructions[i])
+                i += 1
+            loop_count = int(loop_instructions[0]) if len(loop_instructions) > 0 else 1
+            print(loop_instructions)
+            for _ in range(loop_count):
+                for loop_instruction in loop_instructions[1:]:
+                    process_command(loop_instruction)
+        else:
+            process_command(instruction)
+        i += 1
 
 if __name__ == '__main__':
-    input_command()
+    # input_command()
+    load_file("test.txt")
