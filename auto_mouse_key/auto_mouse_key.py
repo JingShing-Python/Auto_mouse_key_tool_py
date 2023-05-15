@@ -87,9 +87,16 @@ def input_command():
                 if loop_command == 'loop end':
                     break
                 loop_instructions.append(loop_command)
-            for _ in range(loop_count):
-                for loop_instruction in loop_instructions:
-                    process_command(loop_instruction)
+            if loop_count == -1:
+                while 1:
+                    if keyboard.is_pressed('esc'):
+                        break
+                    for loop_instruction in loop_instructions:
+                        process_command(loop_instruction)
+            else:
+                for _ in range(loop_count):
+                    for loop_instruction in loop_instructions:
+                        process_command(loop_instruction)
         elif 'if' in command and 'endif' not in command:
             if_parts = command.split()
             if len(if_parts) >= 3:
@@ -152,9 +159,16 @@ def load_file(file_path):
             while i < len(instructions) and instructions[i] != 'loop end':
                 loop_instructions.append(instructions[i])
                 i += 1
-            for _ in range(loop_count):
-                for loop_instruction in loop_instructions[0:]:
-                    process_command(loop_instruction)
+            if loop_count == -1:
+                while 1:
+                    if keyboard.is_pressed('esc'):
+                        break
+                    for loop_instruction in loop_instructions[0:]:
+                        process_command(loop_instruction)
+            else:
+                for _ in range(loop_count):
+                    for loop_instruction in loop_instructions[0:]:
+                        process_command(loop_instruction)
         elif 'if' in instruction and not 'endif' in instruction:
             if_parts = instruction.split()
             if len(if_parts) >= 3:
@@ -216,5 +230,5 @@ def skip_else_block(instructions, start_index):
     return i
 
 if __name__ == '__main__':
-    input_command()
-    # load_file("test.txt")
+    # input_command()
+    load_file("test.txt")
