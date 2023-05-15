@@ -69,11 +69,24 @@ def process_command(command):
         time.sleep(int(args[-1]))
 
 def input_command():
+    loop_instructions = []
     while True:
         command = input('Enter command: ')
         if command == 'exit':
             break
-        process_command(command)
+        elif 'loop' in command:
+            loop_count = int(command.split()[-1]) if len(command.split()) > 0 else 1
+            loop_instructions = []
+            while True:
+                loop_command = input('Enter loop command: ')
+                if loop_command == 'loop end':
+                    break
+                loop_instructions.append(loop_command)
+            for _ in range(loop_count):
+                for loop_instruction in loop_instructions:
+                    process_command(loop_instruction)
+        else:
+            process_command(command)
 
 def read_instructions(file_path):
     with open(file_path, 'r') as file:
@@ -85,7 +98,9 @@ def load_file(file_path):
     i = 0
     while i < len(instructions):
         instruction = instructions[i]
-        if 'loop' in instruction:            
+        if instruction == 'exit':
+            break
+        elif 'loop' in instruction:            
             loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
             
             loop_instructions = []
