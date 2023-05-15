@@ -6,8 +6,9 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 ## All syntax
 * keyboard action
   * key string
-  * key hold key_name
-  * key release key_name
+  * press key_name
+  * hold key_name
+  * release key_name
   > all key name can see in below
 * mouse action
   * move
@@ -36,6 +37,17 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 
 ## Manual for syntax
 
+* keyboard action
+  * key string
+  > this will simulate the keyboard input to key in the string.
+  * press key_name
+  > press key once
+  * hold key_name
+  > pressed key
+  * release key_name
+  > release key
+  > 
+  > all key name can see in below
 * mouse action
   * move
   > this command can move mouse to specific position
