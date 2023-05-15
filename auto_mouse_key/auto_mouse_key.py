@@ -85,17 +85,18 @@ def load_file(file_path):
     i = 0
     while i < len(instructions):
         instruction = instructions[i]
-        if instruction == 'loop':
-            print("AAA")
+        if 'loop' in instruction:            
+            loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
+            
             loop_instructions = []
             i += 1
             while i < len(instructions) and instructions[i] != 'loop end':
                 loop_instructions.append(instructions[i])
                 i += 1
-            loop_count = int(loop_instructions[0]) if len(loop_instructions) > 0 else 1
             print(loop_instructions)
             for _ in range(loop_count):
-                for loop_instruction in loop_instructions[1:]:
+                for loop_instruction in loop_instructions[0:]:
+                    print(loop_instruction)
                     process_command(loop_instruction)
         else:
             process_command(instruction)
