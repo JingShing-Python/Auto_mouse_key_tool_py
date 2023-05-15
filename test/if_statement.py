@@ -160,10 +160,8 @@ def load_file(file_path):
             while i < len(instructions) and instructions[i] != 'loop end':
                 loop_instructions.append(instructions[i])
                 i += 1
-            print(loop_instructions)
             for _ in range(loop_count):
                 for loop_instruction in loop_instructions[0:]:
-                    print(loop_instruction)
                     process_command(loop_instruction)
         elif 'if' in instruction and not 'endif' in instruction:
             if_parts = instruction.split()
