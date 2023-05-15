@@ -1,40 +1,38 @@
 English | [繁體中文](README_TCH.md)
-# 自動按鍵工具
+# Auto_mouse_key_tool_py
 A tool that can simulate key and mouse action coding with python. It use simple syntax to move mouse and key in the text and find the image position.
 
-## 說明
-## 語法
-* 鍵盤操作
-  * key 字串
-  * press key_name
-  * hold key_name
-  * release key_name
-  > 所有可用的 key_name 可於下方查表
-* 滑鼠操作
-  * 移動
+## Instructions
+## All syntax
+* keyboard action
+  * key string
+  * key hold key_name
+  * key release key_name
+  > all key name can see in below
+* mouse action
+  * move
     * move relative(r) dx dy
     * move absolute(a) x y
     * move image(i) image_path
-  * 點擊
+  * click
     * click left/right/middle
     * click left/right/middle N
     * click left/right/middle hold
     * click left/right/middle release
     * click left/right/middle hold release
-  * 滾動
+  * scroll
     * scroll up/down
     * scroll up/down amount
-* 休眠
+* sleep
   * sleep N
-* 迴圈
+* loop
   * loop N
   * loop end
-* if狀態
+* if
   * if image file_path
   * if mouse px py
   * endif
-* 退出
-  * exit
+* exit
 
 ## Manual for syntax
 
@@ -84,48 +82,47 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 > stop the script
 
 ## all key_name available
+* a, b, c, ...: individual letter keys
 
-* a, b, c, ...: 單個字母鍵
+* 1, 2, 3, ...: number keys
 
-* 1, 2, 3, ...: 數字鍵
+* F1, F2, F3, ...: function keys
 
-* F1, F2, F3, ...: 功能鍵
+* space: spacebar
 
-* space: 空格鍵
+* enter: enter key
 
-* enter: 回車鍵
+* tab: tab key
 
-* tab: 制表鍵
+* shift: Shift key
 
-* shift: Shift鍵
+* ctrl: Ctrl key
 
-* ctrl: Ctrl鍵
+* alt: Alt key
 
-* alt: Alt鍵
+* caps lock: Caps Lock key
 
-* caps lock: 大寫鎖定鍵
+* esc: Escape key
 
-* esc: Escape鍵
+* backspace: backspace key
 
-* backspace: 倒退鍵
+* delete: delete key
 
-* delete: 刪除鍵
+* home: Home key
 
-* home: Home鍵
+* end: End key
 
-* end: End鍵
+* page up: Page Up key
 
-* page up: Page Up鍵
+* page down: Page Down key
 
-* page down: Page Down鍵
+* left arrow: left arrow key
 
-* left arrow: 左方向鍵
+* right arrow: right arrow key
 
-* right arrow: 右方向鍵
+* up arrow: up arrow key
 
-* up arrow: 上方向鍵
-
-* down arrow: 下方向鍵
+* down arrow: down arrow key
 
 ## TODO
 - [X] if else: to detect image and to do something
