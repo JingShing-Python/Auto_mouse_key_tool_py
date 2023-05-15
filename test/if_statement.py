@@ -74,25 +74,24 @@ def process_command(command):
 
 def input_command():
     loop_instructions = []
-    i = 0
-    instructions = []
     while True:
-        instruction = instructions[i]
-        if instruction == 'exit':
+        command = input('Enter command: ')
+        if command == 'exit':
             break
-        elif 'loop' in instruction:
-            if instruction.split()[-1] != 'end':
-                loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
+        elif 'loop' in command and 'end' not in command:
+            if command.split()[-1] != 'end':
+                loop_count = int(command.split()[-1]) if len(command.split()) > 0 else 1
             loop_instructions = []
-            i += 1
-            while i < len(instructions) and instructions[i] != 'loop end':
-                loop_instructions.append(instructions[i])
-                i += 1
+            while True:
+                loop_command = input('Enter loop command: ')
+                if loop_command == 'loop end':
+                    break
+                loop_instructions.append(loop_command)
             for _ in range(loop_count):
                 for loop_instruction in loop_instructions:
                     process_command(loop_instruction)
-        elif 'if' in instruction and 'endif' not in instruction:
-            if_parts = instruction.split()
+        elif 'if' in command and 'endif' not in command:
+            if_parts = command.split()
             if len(if_parts) >= 3:
                 condition_type = if_parts[1]
                 condition_value = ' '.join(if_parts[2:])
@@ -100,43 +99,36 @@ def input_command():
                     if pyautogui.locateOnScreen(condition_value):
                         nested_if_count = 1
                         nested_endif_count = 0
-                        i += 1
                         while nested_if_count > nested_endif_count:
-                            nested_instruction = instructions[i]
+                            nested_instruction = input('Enter nested instruction: ')
                             if 'endif' in nested_instruction:
                                 nested_endif_count += 1
                             elif 'if' in nested_instruction:
                                 nested_if_count += 1
                             process_command(nested_instruction)
-                            i += 1
                     else:
-                        i = skip_else_block(instructions, i)
+                        skip_else_block()
                 elif condition_type == 'mouse':
                     mouse_x, mouse_y = map(int, condition_value.split(','))
                     current_x, current_y = pyautogui.position()
                     if current_x == mouse_x and current_y == mouse_y:
                         nested_if_count = 1
                         nested_endif_count = 0
-                        i += 1
                         while nested_if_count > nested_endif_count:
-                            nested_instruction = instructions[i]
+                            nested_instruction = input('Enter nested instruction: ')
                             if 'endif' in nested_instruction:
                                 nested_endif_count += 1
                             elif 'if' in nested_instruction:
                                 nested_if_count += 1
                             process_command(nested_instruction)
-                            i += 1
                     else:
-                        i = skip_else_block(instructions, i)
+                        skip_else_block()
                 else:
                     print(f"Invalid condition type in if statement: {condition_type}")
-                    i += 1
             else:
-                print(f"Invalid if statement: {instruction}")
-                i += 1
+                print(f"Invalid if statement: {command}")
         else:
-            process_command(instruction)
-            i += 1
+            process_command(command)
 
 
 def read_instructions(file_path):
@@ -146,12 +138,13 @@ def read_instructions(file_path):
 
 def load_file(file_path):
     instructions = read_instructions(file_path)
+    print(instructions)
     i = 0
     while i < len(instructions):
         instruction = instructions[i]
         if instruction == 'exit':
             break
-        elif 'loop' in instruction:
+        elif 'loop' in instruction and not 'end' in instruction:
             if instruction.split()[-1] != 'end':
                 loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
             
@@ -224,5 +217,5 @@ def skip_else_block(instructions, start_index):
     return i
 
 if __name__ == '__main__':
-    # input_command()
-    load_file("test.txt")
+    input_command()
+    # load_file("test.txt")
