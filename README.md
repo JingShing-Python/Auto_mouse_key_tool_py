@@ -27,6 +27,7 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 * loop
  * loop N
  * loop end
+* exit
 
 ## all key_name available
 * a, b, c, ...: individual letter keys
