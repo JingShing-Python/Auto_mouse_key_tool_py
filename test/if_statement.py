@@ -74,23 +74,70 @@ def process_command(command):
 
 def input_command():
     loop_instructions = []
+    i = 0
+    instructions = []
     while True:
-        command = input('Enter command: ')
-        if command == 'exit':
+        instruction = instructions[i]
+        if instruction == 'exit':
             break
-        elif 'loop' in command:
-            loop_count = int(command.split()[-1]) if len(command.split()) > 0 else 1
+        elif 'loop' in instruction:
+            if instruction.split()[-1] != 'end':
+                loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
             loop_instructions = []
-            while True:
-                loop_command = input('Enter loop command: ')
-                if loop_command == 'loop end':
-                    break
-                loop_instructions.append(loop_command)
+            i += 1
+            while i < len(instructions) and instructions[i] != 'loop end':
+                loop_instructions.append(instructions[i])
+                i += 1
             for _ in range(loop_count):
                 for loop_instruction in loop_instructions:
                     process_command(loop_instruction)
+        elif 'if' in instruction and 'endif' not in instruction:
+            if_parts = instruction.split()
+            if len(if_parts) >= 3:
+                condition_type = if_parts[1]
+                condition_value = ' '.join(if_parts[2:])
+                if condition_type == 'image':
+                    if pyautogui.locateOnScreen(condition_value):
+                        nested_if_count = 1
+                        nested_endif_count = 0
+                        i += 1
+                        while nested_if_count > nested_endif_count:
+                            nested_instruction = instructions[i]
+                            if 'endif' in nested_instruction:
+                                nested_endif_count += 1
+                            elif 'if' in nested_instruction:
+                                nested_if_count += 1
+                            process_command(nested_instruction)
+                            i += 1
+                    else:
+                        i = skip_else_block(instructions, i)
+                elif condition_type == 'mouse':
+                    mouse_x, mouse_y = map(int, condition_value.split(','))
+                    current_x, current_y = pyautogui.position()
+                    if current_x == mouse_x and current_y == mouse_y:
+                        nested_if_count = 1
+                        nested_endif_count = 0
+                        i += 1
+                        while nested_if_count > nested_endif_count:
+                            nested_instruction = instructions[i]
+                            if 'endif' in nested_instruction:
+                                nested_endif_count += 1
+                            elif 'if' in nested_instruction:
+                                nested_if_count += 1
+                            process_command(nested_instruction)
+                            i += 1
+                    else:
+                        i = skip_else_block(instructions, i)
+                else:
+                    print(f"Invalid condition type in if statement: {condition_type}")
+                    i += 1
+            else:
+                print(f"Invalid if statement: {instruction}")
+                i += 1
         else:
-            process_command(command)
+            process_command(instruction)
+            i += 1
+
 
 def read_instructions(file_path):
     with open(file_path, 'r') as file:
@@ -104,8 +151,9 @@ def load_file(file_path):
         instruction = instructions[i]
         if instruction == 'exit':
             break
-        elif 'loop' in instruction:            
-            loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
+        elif 'loop' in instruction:
+            if instruction.split()[-1] != 'end':
+                loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
             
             loop_instructions = []
             i += 1
@@ -129,10 +177,10 @@ def load_file(file_path):
                         i += 1
                         while nested_if_count > nested_endif_count:
                             nested_instruction = instructions[i]
-                            if 'if' in nested_instruction:
-                                nested_if_count += 1
-                            elif 'endif' in nested_instruction:
+                            if 'endif' in nested_instruction:
                                 nested_endif_count += 1
+                            elif 'if' in nested_instruction:
+                                nested_if_count += 1
                             process_command(nested_instruction)
                             i += 1
                     else:
@@ -146,10 +194,10 @@ def load_file(file_path):
                         i += 1
                         while nested_if_count > nested_endif_count:
                             nested_instruction = instructions[i]
-                            if 'if' in nested_instruction:
-                                nested_if_count += 1
-                            elif 'endif' in nested_instruction:
+                            if 'endif' in nested_instruction:
                                 nested_endif_count += 1
+                            elif 'if' in nested_instruction:
+                                nested_if_count += 1
                             process_command(nested_instruction)
                             i += 1
                     else:
@@ -170,10 +218,10 @@ def skip_else_block(instructions, start_index):
     i = start_index + 1
     while nested_if_count > nested_endif_count:
         nested_instruction = instructions[i]
-        if 'if' in nested_instruction:
-            nested_if_count += 1
-        elif 'endif' in nested_instruction:
+        if 'endif' in nested_instruction:
             nested_endif_count += 1
+        elif 'if' in nested_instruction:
+            nested_if_count += 1
         i += 1
     return i
 
