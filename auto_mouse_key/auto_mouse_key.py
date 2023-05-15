@@ -3,46 +3,46 @@ import pyautogui
 import time
 
 def process_command(command):
-    parts = command.split()
-    if len(parts) < 2:
-        return
+    action, *args = command.split()
 
-    action = parts[0]
-    parameters = ' '.join(parts[1:])
+    key_actions = ['key']
+    mouse_actions = ['move', 'click']
+    click_types = ['right', 'left']
 
-    if action == 'key':
-        # key is mean keyboard
-        # it will simulate keyboard to key in
+    if action in key_actions:
+        # keyboard action
         # key string
-        keyboard.write(parameters)
-    elif action == 'mouse':
-        if parameters.startswith('move'):
-            # mouse move relative dx dy
-            # mouse move absolute x y
-            # mouse move image image_path
-            _, move_type, *values = parameters.split()
-            if move_type == 'relative':
+        keyboard.write(' '.join(args))
+    elif action in mouse_actions:
+        # mouse action
+        # move relative(r) dx dy
+        # move absolute(a) x y
+        # move image(i) image_path
+        # click right
+        # click left
+        if action == 'move':
+            move_type, *values = args
+            if move_type == 'relative' or move_type == 'r':
                 x, y = map(int, values)
                 current_x, current_y = pyautogui.position()
                 target_x = current_x + x
                 target_y = current_y + y
                 pyautogui.moveTo(target_x, target_y)
-            elif move_type == 'absolute':
+            elif move_type == 'absolute' or move_type == 'a':
                 x, y = map(int, values)
                 pyautogui.moveTo(x, y)
-            elif move_type == 'image':
-                _, image_path = parameters.split()
+            elif move_type == 'image' or move_type == 'i':
+                image_path = ' '.join(values)
                 center = pyautogui.locateCenterOnScreen(image_path)
                 if center:
                     x, y = center
                     pyautogui.moveTo(x, y)
-        elif 'click' in parameters:
-            if 'right' in parameters:
-                pyautogui.click(button='right')
-            elif 'left'in parameters:
-                pyautogui.click(button='left')
+        elif action == 'click':
+            click_type = args[0]
+            if click_type in click_types:
+                pyautogui.click(button=click_type)
     elif action == 'sleep':
-        time.sleep(int(parameters.split()[-1]))
+        time.sleep(int(args[-1]))
 
 def input_command():
     while True:
@@ -52,17 +52,14 @@ def input_command():
         process_command(command)
 
 def read_instructions(file_path):
-    instructions = []
     with open(file_path, 'r') as file:
-        for line in file:
-            instructions.append(line.strip())
-    print(instructions)
+        instructions = [line.strip() for line in file]
     return instructions
 
 def load_file(file_path):
     instructions = read_instructions(file_path)
-    for i in instructions:
-        process_command(i)
+    for instruction in instructions:
+        process_command(instruction)
 
 if __name__ == '__main__':
     input_command()
