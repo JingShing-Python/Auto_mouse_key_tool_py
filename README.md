@@ -27,6 +27,10 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 * loop
   * loop N
   * loop end
+* if
+  * if image file_path
+  * if mouse px py
+  * endif
 * exit
 
 ## all key_name available
