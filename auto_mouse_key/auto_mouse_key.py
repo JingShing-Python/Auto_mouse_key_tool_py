@@ -118,5 +118,5 @@ def load_file(file_path):
         i += 1
 
 if __name__ == '__main__':
-    # input_command()
-    load_file("test.txt")
+    input_command()
+    # load_file("test.txt")
