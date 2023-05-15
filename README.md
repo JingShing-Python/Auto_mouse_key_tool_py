@@ -82,47 +82,48 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 > stop the script
 
 ## all key_name available
-* a, b, c, ...: individual letter keys
 
-* 1, 2, 3, ...: number keys
+* a, b, c, ...: 單個字母鍵
 
-* F1, F2, F3, ...: function keys
+* 1, 2, 3, ...: 數字鍵
 
-* space: spacebar
+* F1, F2, F3, ...: 功能鍵
 
-* enter: enter key
+* space: 空格鍵
 
-* tab: tab key
+* enter: 回車鍵
 
-* shift: Shift key
+* tab: 制表鍵
 
-* ctrl: Ctrl key
+* shift: Shift鍵
 
-* alt: Alt key
+* ctrl: Ctrl鍵
 
-* caps lock: Caps Lock key
+* alt: Alt鍵
 
-* esc: Escape key
+* caps lock: 大寫鎖定鍵
 
-* backspace: backspace key
+* esc: Escape鍵
 
-* delete: delete key
+* backspace: 倒退鍵
 
-* home: Home key
+* delete: 刪除鍵
 
-* end: End key
+* home: Home鍵
 
-* page up: Page Up key
+* end: End鍵
 
-* page down: Page Down key
+* page up: Page Up鍵
 
-* left arrow: left arrow key
+* page down: Page Down鍵
 
-* right arrow: right arrow key
+* left arrow: 左方向鍵
 
-* up arrow: up arrow key
+* right arrow: 右方向鍵
 
-* down arrow: down arrow key
+* up arrow: 上方向鍵
+
+* down arrow: 下方向鍵
 
 ## TODO
 - [X] if else: to detect image and to do something
