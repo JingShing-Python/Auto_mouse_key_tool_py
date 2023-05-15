@@ -117,7 +117,7 @@ def load_file(file_path):
                 for loop_instruction in loop_instructions[0:]:
                     print(loop_instruction)
                     process_command(loop_instruction)
-        elif 'if' in instruction:
+        elif 'if' in instruction and not 'endif' in instruction:
             if_parts = instruction.split()
             if len(if_parts) >= 3:
                 condition_type = if_parts[1]
