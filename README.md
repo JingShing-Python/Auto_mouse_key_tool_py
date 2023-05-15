@@ -1,38 +1,40 @@
 English | [繁體中文](README_TCH.md)
-# Auto_mouse_key_tool_py
+# 自動按鍵工具
 A tool that can simulate key and mouse action coding with python. It use simple syntax to move mouse and key in the text and find the image position.
 
-## Instructions
-## All syntax
-* keyboard action
-  * key string
-  * key hold key_name
-  * key release key_name
-  > all key name can see in below
-* mouse action
-  * move
+## 說明
+## 語法
+* 鍵盤操作
+  * key 字串
+  * press key_name
+  * hold key_name
+  * release key_name
+  > 所有可用的 key_name 可於下方查表
+* 滑鼠操作
+  * 移動
     * move relative(r) dx dy
     * move absolute(a) x y
     * move image(i) image_path
-  * click
+  * 點擊
     * click left/right/middle
     * click left/right/middle N
     * click left/right/middle hold
     * click left/right/middle release
     * click left/right/middle hold release
-  * scroll
+  * 滾動
     * scroll up/down
     * scroll up/down amount
-* sleep
+* 休眠
   * sleep N
-* loop
+* 迴圈
   * loop N
   * loop end
-* if
+* if狀態
   * if image file_path
   * if mouse px py
   * endif
-* exit
+* 退出
+  * exit
 
 ## Manual for syntax
 
