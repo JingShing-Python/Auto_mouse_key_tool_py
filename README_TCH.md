@@ -1,7 +1,10 @@
 [English](README.md) | 繁體中文
 # 自動按鍵工具
 一個可以模擬鍵盤和滑鼠操作的工具，用 python 製作。
-
+### 前置
+* ```pip install keyboard```
+* ```pip install pyautogui```
+* ```pip install pillow```
 ## 說明
 ## 語法
 * 鍵盤操作
@@ -70,19 +73,19 @@
     * click left/right/middle hold release
     > 按住再鬆開
   * scroll
-  > use mouse scroll
+  > 滑鼠滾動
     * scroll up/down
-    > scroll onece
+    > 滾動一次
     * scroll up/down amount
-    > scroll the certain amount
-* sleep
-> this method is for waiting the instruction. To slow down your script.
+    > 滾動 N 次
+* 休眠
+> 這個語法，將能使指令間停頓
   * sleep N
-  > wait for N seconds
-* loop
-> loop is a specific syntax. It has no effect but it can be mixed with other features.
+  > 等待 N 秒
+* 迴圈
+> 迴圈是一個特殊語法，可以組合其他語法使用，且具備區塊的特性，所以需要 end 來判定
   * loop N
-  > loop N times. if N == -1 it will be infinite loop. It can be break with esc.
+  > 重複 N 次。如果 N = -1 則為無窮迴圈，無窮迴圈可以按 esc 來取消。
   * loop end
   > after a loop need to put loop end to declare a stop for loop.
 * if
@@ -139,11 +142,32 @@
 
 * down arrow: 下方向鍵
 
+## 紀錄
+### Ver0.1
+* 功能:
+  * GUI
+    * 編輯檔按
+    * 存讀檔
+    * 運行
+  * 基礎語法
+    * 迴圈
+    * if 判斷
+    * 按鍵
+    * 移動
+    * 休眠
+    * 離開
+  * 讀檔
+  * 存檔
+
 ## TODO
 - [X] if else: to detect image and to do something
 - [ ] count
 - [ ] not bool
 - [ ] record
 - [ ] support excel
-- [ ] gui
+- [x] gui
 - [ ] generate instruction file
+- [x] comment
+- [ ] run other file
+- [ ] jump
+- [ ] exec
