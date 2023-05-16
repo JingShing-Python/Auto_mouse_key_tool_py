@@ -5,6 +5,7 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 ### preparation
 * ```pip install keyboard```
 * ```pip install pyautogui```
+* ```pip install pillow```
 ## Instructions
 ## All syntax
 * keyboard action
