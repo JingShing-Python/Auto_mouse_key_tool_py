@@ -43,7 +43,9 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 * exit
 
 ## Manual for syntax
+> you can use '#' as comment
 
+> Like ```#loop 10``` it will not run this loop
 * keyboard action
   * key string
   > this will simulate the keyboard input to key in the string.
