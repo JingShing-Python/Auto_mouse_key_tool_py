@@ -8,6 +8,9 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 * ```pip install pillow```
 ## Instructions
 ## All syntax
+> you can use '#' as comment
+
+> Like ```#loop 10``` it will not run this loop
 * keyboard action
   * key string
   * press key_name
