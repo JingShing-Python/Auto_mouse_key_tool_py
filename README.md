@@ -147,3 +147,7 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 - [ ] support excel
 - [ ] gui
 - [ ] generate instruction file
+- [ ] comment
+- [ ] run other file
+- [ ] jump
+- [ ] exec
