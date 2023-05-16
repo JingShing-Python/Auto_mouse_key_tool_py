@@ -5,13 +5,38 @@ import threading
 import time
 import pyautogui
 import keyboard
+import sys
+import os
 
-instructions = []
+all_instructions = []
 file_path = ""
 is_running = False
 
+def resource_path(relative):
+	if hasattr(sys, "_MEIPASS"):
+		absolute_path = os.path.join(sys._MEIPASS, relative)
+	else:
+		absolute_path = os.path.join(relative)
+	return absolute_path
+
+def set_statement(statement="None", label=None):
+    if label == None:
+        label = state_label
+    print(statement)
+    label.config(text=statement)
+
+def no_comment_instructions(instructions):
+    real_instrucions = []
+    for i in instructions:
+        if i[0] == '#':
+            continue
+        real_instrucions.append(i)
+    return real_instrucions
+
 def process_command(command):
-    print(command)
+    if command[0] == '#':
+        return
+    set_statement("now command: "+command)
     parts = command.split()
     if len(parts) > 0:
         action, *args = parts
@@ -78,7 +103,7 @@ def process_command(command):
         elif action == 'sleep':
             time.sleep(int(args[-1]))
     else:
-        print("Invalid command: No action specified.")
+        set_statement("Invalid command: No action specified.")
 
 def skip_else_block(instructions, start_index):
     nested_if_count = 0
@@ -94,7 +119,7 @@ def skip_else_block(instructions, start_index):
     return i
 
 def load_instructions(old_file_path=None):
-    global instructions
+    global all_instructions
     global file_path
     if old_file_path == None:
         file_path = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')])
@@ -102,20 +127,21 @@ def load_instructions(old_file_path=None):
         file_path = old_file_path
     if file_path:
         with open(file_path, 'r') as file:
-            instructions = [line.strip() for line in file]
+            all_instructions = [line.strip() for line in file]
         update_listbox()
+    set_statement("file loaded: "+file_path.split("/")[-1])
 
 def save_instructions():
-    global instructions
+    global all_instructions
     file_path = filedialog.asksaveasfilename(filetypes=[('Text Files', '*.txt')])
     if file_path:
         with open(file_path, 'w') as file:
-            file.write('\n'.join(instructions))
+            file.write('\n'.join(all_instructions))
         messagebox.showinfo('Save', 'Instructions saved successfully.')
 
 def update_listbox():
     listbox.delete(0, tk.END)
-    for instruction in instructions:
+    for instruction in all_instructions:
         listbox.insert(tk.END, instruction)
 
 def add_instruction():
@@ -124,9 +150,9 @@ def add_instruction():
         selected_index = listbox.curselection()
         if selected_index:
             index = selected_index[0] + 1
-            instructions.insert(index, instruction)
+            all_instructions.insert(index, instruction)
         else:
-            instructions.append(instruction)
+            all_instructions.append(instruction)
         update_listbox()
         input_entry.delete(0, tk.END)
 
@@ -136,7 +162,7 @@ def edit_instruction():
         index = selected_index[0]
         instruction = input_entry.get()
         if instruction:
-            instructions[index] = instruction
+            all_instructions[index] = instruction
             update_listbox()
             input_entry.delete(0, tk.END)
 
@@ -144,7 +170,7 @@ def delete_instruction():
     selected_index = listbox.curselection()
     if selected_index:
         index = selected_index[0]
-        del instructions[index]
+        del all_instructions[index]
         update_listbox()
 
 def refresh_instructions():
@@ -169,8 +195,12 @@ def stop_instructions():
 
 def run_instructions():
     global is_running
+    global all_instructions
+    instructions = no_comment_instructions(all_instructions)
     i = 0
-    while i < len(instructions) and is_running:
+    while i < len(instructions):
+        if not is_running:
+            break
         instruction = instructions[i]
         if instruction == 'exit':
             break
@@ -233,22 +263,24 @@ def run_instructions():
                     else:
                         i = skip_else_block(instructions, i)
                 else:
-                    print(f"Invalid condition type in if statement: {condition_type}")
+                    set_statement(f"Invalid condition type in if statement: {condition_type}")
                     i += 1
             else:
-                print(f"Invalid if statement: {instruction}")
+                set_statement(f"Invalid if statement: {instruction}")
                 i += 1
         else:
             process_command(instruction)
             i += 1
 
+    set_statement("script end")
     is_running = False
     play_button.config(state=tk.NORMAL)
     stop_button.config(state=tk.DISABLED)
 
 # GUI initialization
 root = tk.Tk()
-root.title('Instruction Manager')
+root.title('Auto tool')
+root.wm_iconbitmap(resource_path('icon/icon.ico'))
 
 # Frame for the left side containing the listbox
 listbox_frame = tk.Frame(root, width=300, padx=10, pady=10)
@@ -299,6 +331,10 @@ play_button.pack(side=tk.LEFT, padx=5)
 stop_button = tk.Button(button_frame, text='Stop', command=stop_instructions, state=tk.DISABLED)
 stop_button.pack(side=tk.LEFT, padx=5)
 
+# state label
+state_label = tk.Label(button_frame, text="Statement: None")
+state_label.pack(side=tk.LEFT, padx=5)
+
 # Load button
 load_button = tk.Button(root, text='Load', command=load_instructions)
 load_button.pack(side=tk.TOP, padx=10, pady=5)
@@ -306,5 +342,4 @@ load_button.pack(side=tk.TOP, padx=10, pady=5)
 # Save button
 save_button = tk.Button(root, text='Save', command=save_instructions)
 save_button.pack(side=tk.TOP, padx=10, pady=5)
-
 root.mainloop()
