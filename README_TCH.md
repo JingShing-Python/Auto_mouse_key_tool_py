@@ -7,6 +7,9 @@
 * ```pip install pillow```
 ## 說明
 ## 語法
+> 可以使用 '#' 寫註解
+
+> 例： ```#loop 10``` 跑的時候不會跑此迴圈
 * 鍵盤操作
   * key 字串
   * press key_name
@@ -40,6 +43,9 @@
   * exit
 
 ## 語法手冊
+> 可以使用 '#' 寫註解
+
+> 例： ```#loop 10``` 跑的時候不會跑此迴圈
 * 鍵盤操作
   * key 字串
   > 模擬鍵盤輸入此字串
@@ -87,16 +93,16 @@
   * loop N
   > 重複 N 次。如果 N = -1 則為無窮迴圈，無窮迴圈可以按 esc 來取消。
   * loop end
-  > after a loop need to put loop end to declare a stop for loop.
-* if
+  > 在迴圈結尾，需要此來標註迴圈結束位置
+* if 狀態
   * if image file_path
-  > detect if on the screen detect the image file. It will be true and run the code below.
+  > 偵測圖片有沒有在屏幕上，有的話會跑底下區塊的內容
   * if mouse px py
-  > detect if mouse in px py.
+  > 偵測滑鼠是否在特定的座標
   * endif
-  > after a if statement need to put endif to declare a stop for statement.
+  > 如果區塊結束，要放置此來提示 if 區塊的結束
 * exit
-> stop the script
+> 停止腳本
 
 ## all key_name available
 
