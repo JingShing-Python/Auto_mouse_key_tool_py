@@ -1,6 +1,6 @@
 [English](README.md) | 繁體中文
 # 自動按鍵工具
-A tool that can simulate key and mouse action coding with python. It use simple syntax to move mouse and key in the text and find the image position.
+一個可以模擬鍵盤和滑鼠操作的工具，用 python 製作。
 
 ## 說明
 ## 語法
@@ -36,27 +36,39 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 * 退出
   * exit
 
-## Manual for syntax
-
-* mouse action
+## 語法手冊
+* 鍵盤操作
+  * key 字串
+  > 模擬鍵盤輸入此字串
+  * press key_name
+  > 按鍵盤按鍵一次
+  * hold key_name
+  > 按住鍵盤按鍵
+  * release key_name
+  > 鬆開鍵盤按鍵
+  > 
+  > 所有可用的 key_name 可於下方查表
+* 滑鼠操作
   * move
-  > this command can move mouse to specific position
+  > 這個指令可以移動滑鼠鼠標
     * move relative(r) dx dy
-    > relative move
+    > 相對座標移動
     * move absolute(a) x y
-    > move to the absolute position
+    > 移動到絕對座標
     * move image(i) image_path
-    > move to the image detect on the screen. If not found it will do nothing
+    > 移動到屏幕上偵測的給定圖片中心，如果沒找到圖片，則不會移動
   * click
-  > click the mouse button
+  > 點擊滑鼠按鍵
     * click left/right/middle
-    > click once
+    > 點擊一次
     * click left/right/middle N
-    > click N times
+    > 點擊 N 次
     * click left/right/middle hold
-    > pressed the button
+    > 按住按鍵
     * click left/right/middle release
+    > 鬆開按鍵
     * click left/right/middle hold release
+    > 按住再鬆開
   * scroll
   > use mouse scroll
     * scroll up/down
