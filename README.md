@@ -143,6 +143,23 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 
 * down arrow: down arrow key
 
+## Log
+### Ver0.1
+* Feature:
+  * GUI
+    * edit file
+    * load and save
+    * run and stop
+  * Basic Syntax
+    * loop
+    * if statement
+    * press
+    * move
+    * sleep
+    * exit
+  * Load file
+  * Save file
+
 ## TODO
 - [X] if else: to detect image and to do something
 - [ ] count
