@@ -34,7 +34,7 @@
   * sleep N
 * 迴圈
   * loop N
-  * loop end
+  * endloop
 * if狀態
   * if image file_path
   * if mouse px py
@@ -92,7 +92,7 @@
 > 迴圈是一個特殊語法，可以組合其他語法使用，且具備區塊的特性，所以需要 end 來判定
   * loop N
   > 重複 N 次。如果 N = -1 則為無窮迴圈，無窮迴圈可以按 esc 來取消。
-  * loop end
+  * endloop
   > 在迴圈結尾，需要此來標註迴圈結束位置
 * if 狀態
   * if image file_path
@@ -164,6 +164,11 @@
     * 離開
   * 讀檔
   * 存檔
+### Ver0.2
+* [線上編輯器](https://jingshing.com/auto_tool_ide/)
+* 功能:
+  * 更動: loop end 更改為 endloop
+  * 移除 gui 的 input 功能
 
 ## TODO
 - [X] if else: to detect image and to do something
