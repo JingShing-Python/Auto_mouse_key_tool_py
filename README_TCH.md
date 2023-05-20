@@ -1,6 +1,10 @@
 [English](README.md) | 繁體中文
 # 自動按鍵工具
 一個可以模擬鍵盤和滑鼠操作的工具，用 python 製作。可以偵測圖片移動滑鼠，且可以進行基礎判定和迴圈功能。
+## [線上 IDE](https://jingshing.com/auto_tool_ide/) 現正供應中！
+![image_ide](image/online_ide.png)
+> 一個可以協助編寫此自動工具腳本的工具： [線上編輯器](https://jingshing.com/auto_tool_ide/)
+
 ### 前置
 * ```pip install keyboard```
 * ```pip install pyautogui```
