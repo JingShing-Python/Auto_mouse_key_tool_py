@@ -106,8 +106,8 @@ def process_command(command):
         set_statement("Invalid command: No action specified.")
 
 def skip_else_block(instructions, start_index):
-    nested_if_count = 0
-    nested_endif_count = 1
+    nested_if_count = 1
+    nested_endif_count = 0
     i = start_index + 1
     while nested_if_count > nested_endif_count:
         nested_instruction = instructions[i]
@@ -144,35 +144,6 @@ def update_listbox():
     for instruction in all_instructions:
         listbox.insert(tk.END, instruction)
 
-def add_instruction():
-    instruction = input_entry.get()
-    if instruction:
-        selected_index = listbox.curselection()
-        if selected_index:
-            index = selected_index[0] + 1
-            all_instructions.insert(index, instruction)
-        else:
-            all_instructions.append(instruction)
-        update_listbox()
-        input_entry.delete(0, tk.END)
-
-def edit_instruction():
-    selected_index = listbox.curselection()
-    if selected_index:
-        index = selected_index[0]
-        instruction = input_entry.get()
-        if instruction:
-            all_instructions[index] = instruction
-            update_listbox()
-            input_entry.delete(0, tk.END)
-
-def delete_instruction():
-    selected_index = listbox.curselection()
-    if selected_index:
-        index = selected_index[0]
-        del all_instructions[index]
-        update_listbox()
-
 def refresh_instructions():
     global file_path
     load_instructions(file_path)
@@ -204,13 +175,13 @@ def run_instructions():
         instruction = instructions[i]
         if instruction == 'exit':
             break
-        elif 'loop' in instruction and not 'end' in instruction:
-            if instruction.split()[-1] != 'end':
+        elif 'loop' in instruction and not 'endloop' in instruction:
+            if instruction != 'endloop':
                 loop_count = int(instruction.split()[-1]) if len(instruction.split()) > 0 else 1
             
             loop_instructions = []
             i += 1
-            while i < len(instructions) and instructions[i] != 'loop end' and is_running:
+            while i < len(instructions) and instructions[i] != 'endloop' and is_running:
                 loop_instructions.append(instructions[i])
                 i += 1
             if loop_count == -1:
@@ -245,6 +216,7 @@ def run_instructions():
                             i += 1
                     else:
                         i = skip_else_block(instructions, i)
+                        print(instructions[i])
                 elif condition_type == 'mouse':
                     mouse_x, mouse_y = map(int, condition_value.split(','))
                     current_x, current_y = pyautogui.position()
@@ -299,26 +271,6 @@ listbox_scrollbar.config(command=listbox.yview)
 input_frame = tk.Frame(root, padx=10, pady=10)
 input_frame.pack(side=tk.RIGHT, fill=tk.BOTH)
 
-# Input entry
-input_entry = tk.Entry(input_frame)
-input_entry.pack(side=tk.LEFT, padx=5)
-
-# Add button
-add_button = tk.Button(input_frame, text='Add', command=add_instruction)
-add_button.pack(side=tk.LEFT, padx=5)
-
-# Edit button
-edit_button = tk.Button(input_frame, text='Edit', command=edit_instruction)
-edit_button.pack(side=tk.LEFT, padx=5)
-
-# Delete button
-delete_button = tk.Button(input_frame, text='Delete', command=delete_instruction)
-delete_button.pack(side=tk.LEFT, padx=5)
-
-# Refresh button
-refresh_button = tk.Button(input_frame, text='Refresh', command=refresh_instructions)
-refresh_button.pack(side=tk.LEFT, padx=5)
-
 # Button frame for play and stop buttons
 button_frame = tk.Frame(root, padx=10, pady=10)
 button_frame.pack(side=tk.BOTTOM)
@@ -342,4 +294,8 @@ load_button.pack(side=tk.TOP, padx=10, pady=5)
 # Save button
 save_button = tk.Button(root, text='Save', command=save_instructions)
 save_button.pack(side=tk.TOP, padx=10, pady=5)
+
+# Refresh button
+refresh_button = tk.Button(root, text='Refresh', command=refresh_instructions)
+refresh_button.pack(side=tk.TOP, padx=10, pady=5)
 root.mainloop()
