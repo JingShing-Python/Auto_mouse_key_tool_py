@@ -35,7 +35,7 @@ A tool that can simulate key and mouse action coding with python. It use simple 
   * sleep N
 * loop
   * loop N
-  * loop end
+  * endloop
 * if
   * if image file_path
   * if mouse px py
@@ -90,7 +90,7 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 > loop is a specific syntax. It has no effect but it can be mixed with other features.
   * loop N
   > loop N times. if N == -1 it will be infinite loop. It can be break with esc.
-  * loop end
+  * endloop
   > after a loop need to put loop end to declare a stop for loop.
 * if
   * if image file_path
@@ -161,6 +161,11 @@ A tool that can simulate key and mouse action coding with python. It use simple 
     * exit
   * Load file
   * Save file
+### Ver0.2
+* [Online IDE](https://jingshing.com/auto_tool_ide/)
+* Feature:
+  * edit: loop end to endloop
+  * remove input box in gui
 
 ## TODO
 - [X] if else: to detect image and to do something
