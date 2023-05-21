@@ -186,3 +186,4 @@
 - [ ] run other file
 - [ ] jump
 - [ ] exec
+- [x] ide
