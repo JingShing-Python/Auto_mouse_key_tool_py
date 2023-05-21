@@ -182,3 +182,4 @@ A tool that can simulate key and mouse action coding with python. It use simple 
 - [ ] run other file
 - [ ] jump
 - [ ] exec
+- [x] ide
