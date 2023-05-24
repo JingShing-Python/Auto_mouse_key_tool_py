@@ -1,6 +1,9 @@
 English | [繁體中文](README_TCH.md)
 # Auto_mouse_key_tool_py
 A tool that can simulate key and mouse action coding with python. It use simple syntax to move mouse and key in the text and find the image position.
+
+~this tool is about 1000+times faster than C. Because C can not control your computer and it will be TLE.~
+
 ## [Online IDE](https://jingshing.com/auto_tool_ide/) Now available!
 ![image_ide](image/online_ide.png)
 > An [online ide](https://jingshing.com/auto_tool_ide/) help you write the auto tool script.
